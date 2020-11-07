@@ -34,4 +34,9 @@ public class StudentController {
         }
         return studentService.getStudents(gender);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable int id) {
+        studentService.deleteStudent(id);
+    }
 }

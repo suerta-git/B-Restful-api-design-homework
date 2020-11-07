@@ -26,4 +26,12 @@ public class StudentService {
     public List<Student> getStudents(String gender) {
         return studentRepository.findAllByGender(gender);
     }
+
+    public void deleteStudent(int id) {
+        try {
+            studentRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("id not exists");
+        }
+    }
 }

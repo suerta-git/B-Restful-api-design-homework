@@ -42,4 +42,9 @@ public class StudentRepository {
                 .filter(student -> expectedGender.equals(student.getGender()))
                 .collect(Collectors.toList());
     }
+
+    public void deleteById(int id) {
+        findById(id).orElseThrow(() -> new IllegalArgumentException("Repository internal error: Id not exists"));
+        students.remove(id - 1);
+    }
 }
