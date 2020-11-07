@@ -13,6 +13,11 @@ public class StudentService {
     }
 
     public void addStudent(Student student) {
-        studentRepository.addStudent(student);
+        studentRepository.add(student);
+    }
+
+    public Student getStudent(int id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id not exists"));
     }
 }
