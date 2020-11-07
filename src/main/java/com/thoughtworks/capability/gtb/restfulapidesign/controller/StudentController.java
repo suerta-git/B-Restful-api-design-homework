@@ -2,7 +2,6 @@ package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.model.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,10 +21,5 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student getStudent(@PathVariable int id) {
         return studentService.getStudent(id);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handle(RuntimeException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
