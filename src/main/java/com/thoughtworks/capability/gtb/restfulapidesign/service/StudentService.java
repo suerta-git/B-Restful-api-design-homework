@@ -14,8 +14,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public void addStudent(Student student) {
-        studentRepository.add(student);
+    public Integer addStudent(Student student) {
+        return studentRepository.add(student);
     }
 
     public Student getStudent(int id) {

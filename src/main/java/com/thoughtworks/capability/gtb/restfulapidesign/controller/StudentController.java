@@ -18,8 +18,8 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
+    public Integer addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 
     @GetMapping("/{id}")

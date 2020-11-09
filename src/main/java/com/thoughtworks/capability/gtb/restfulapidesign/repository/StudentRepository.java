@@ -14,10 +14,11 @@ public class StudentRepository {
     private final Map<Integer, Student> students = new HashMap<>();
     private Integer nextId = 1;
 
-    public void add(Student student) {
+    public Integer add(Student student) {
         student.setId(nextId++);
         students.put(student.getId(), student);
         log.info(String.format("Add student: %s", student.toString()));
+        return student.getId();
     }
 
     public Optional<Student> findById(int id) {
