@@ -1,5 +1,6 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
+import com.thoughtworks.capability.gtb.restfulapidesign.model.Gender;
 import com.thoughtworks.capability.gtb.restfulapidesign.model.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,16 @@ public class StudentService {
     }
 
     public List<Student> getStudents(String gender) {
-        return studentRepository.findAllByGender(gender);
+        if (gender == null) {
+            return studentRepository.findAll();
+        }
+        final Gender expectedGender;
+        try {
+            expectedGender = Gender.valueOf(gender);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("filter gender is invalid");
+        }
+        return studentRepository.findAllByGender(expectedGender);
     }
 
     public void deleteStudent(int id) {

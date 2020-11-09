@@ -25,18 +25,13 @@ public class StudentRepository {
         return Optional.ofNullable(students.get(id));
     }
 
-    public List<Student> findAllByGender(String gender) {
-        if (gender.equals("ALL")) {
-            return new ArrayList<>(students.values());
-        }
-        final Gender expectedGender;
-        try {
-            expectedGender = Gender.valueOf(gender);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("filter gender is invalid");
-        }
+    public List<Student> findAll() {
+        return new ArrayList<>(students.values());
+    }
+
+    public List<Student> findAllByGender(Gender gender) {
         return students.values().stream()
-                .filter(student -> expectedGender.equals(student.getGender()))
+                .filter(student -> gender.equals(student.getGender()))
                 .collect(Collectors.toList());
     }
 

@@ -29,9 +29,6 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getStudents(@RequestParam(required = false) String gender) {
-        if (gender == null) {
-            gender = "ALL";
-        }
         return studentService.getStudents(gender);
     }
 
