@@ -5,32 +5,28 @@ import com.thoughtworks.capability.gtb.restfulapidesign.model.Student;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 @Log
 public class StudentRepository {
-    private final List<Student> students = new ArrayList<>();
+    private final Map<Integer, Student> students = new HashMap<>();
     private Integer nextId = 1;
 
     public void add(Student student) {
         student.setId(nextId++);
-        students.add(student);
+        students.put(student.getId(), student);
         log.info(String.format("Add student: %s", student.toString()));
     }
 
     public Optional<Student> findById(int id) {
-        return Optional.ofNullable(
-                id > students.size() || id < 1 ? null : students.get(id - 1)
-        );
+        return Optional.ofNullable(students.get(id));
     }
 
     public List<Student> findAllByGender(String gender) {
         if (gender.equals("ALL")) {
-            return students;
+            return new ArrayList<>(students.values());
         }
         final Gender expectedGender;
         try {
@@ -38,13 +34,13 @@ public class StudentRepository {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("filter gender is invalid");
         }
-        return students.stream()
+        return students.values().stream()
                 .filter(student -> expectedGender.equals(student.getGender()))
                 .collect(Collectors.toList());
     }
 
     public void deleteById(int id) {
         findById(id).orElseThrow(() -> new IllegalArgumentException("Repository internal error: Id not exists"));
-        students.remove(id - 1);
+        students.remove(id);
     }
 }
