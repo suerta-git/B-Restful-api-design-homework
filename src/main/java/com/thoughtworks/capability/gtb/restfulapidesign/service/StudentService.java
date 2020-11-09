@@ -24,6 +24,10 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalArgumentException("id not exists"));
     }
 
+    public List<Student> getStudents() {
+        return getStudents(null);
+    }
+
     public List<Student> getStudents(String gender) {
         if (gender == null) {
             return studentRepository.findAll();
