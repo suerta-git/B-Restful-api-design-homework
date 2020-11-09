@@ -39,4 +39,16 @@ public class StudentRepository {
         findById(id).orElseThrow(() -> new IllegalArgumentException("Repository internal error: Id not exists"));
         students.remove(id);
     }
+
+    private <T> T updateIfNotNull(T previousValue, T newValue) {
+        return newValue == null ? previousValue : newValue;
+    }
+
+    public void update(int id, Student studentPatch) {
+        final Student student = findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Repository internal error: Id not exists"));
+        student.setName(updateIfNotNull(student.getName(), studentPatch.getName()));
+        student.setGender(updateIfNotNull(student.getGender(), studentPatch.getGender()));
+        student.setNote(updateIfNotNull(student.getNote(), studentPatch.getNote()));
+    }
 }

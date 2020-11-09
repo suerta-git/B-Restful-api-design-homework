@@ -44,4 +44,12 @@ public class StudentService {
             throw new IllegalArgumentException("id not exists");
         }
     }
+
+    public void updateStudent(int id, Student studentPatch) {
+        try {
+            studentRepository.update(id, studentPatch);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("id not exists");
+        }
+    }
 }
