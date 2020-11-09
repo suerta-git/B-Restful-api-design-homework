@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.thoughtworks.capability.gtb.restfulapidesign.util.RepositoryUtils.updateIfNotNull;
+
 @Repository
 public class GroupRepository {
     private final List<Group> groups = new ArrayList<>();
@@ -24,5 +26,13 @@ public class GroupRepository {
         for (int i = 1; i <= number; i++) {
             groups.remove(size - i);
         }
+    }
+
+    public void update(int id, Group groupPatch) {
+        if (id < 1 || id > groups.size()) {
+            throw new IllegalArgumentException("Repository internal error: Id not exists");
+        }
+        final Group group = groups.get(id - 1);
+        group.setName(updateIfNotNull(group.getName(), groupPatch.getName()));
     }
 }

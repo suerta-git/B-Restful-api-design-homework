@@ -24,4 +24,9 @@ public class GroupController {
     public List<Group> getGroups() {
         return groupService.getGroups();
     }
+
+    @PatchMapping("/{id}")
+    public void updateGroup(@PathVariable int id, @RequestBody Group group) {
+        groupService.updateGroup(id, group);
+    }
 }

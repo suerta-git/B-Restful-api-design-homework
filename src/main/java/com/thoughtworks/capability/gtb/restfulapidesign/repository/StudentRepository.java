@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.thoughtworks.capability.gtb.restfulapidesign.util.RepositoryUtils.updateIfNotNull;
+
 @Repository
 @Log
 public class StudentRepository {
@@ -38,10 +40,6 @@ public class StudentRepository {
     public void deleteById(int id) {
         findById(id).orElseThrow(() -> new IllegalArgumentException("Repository internal error: Id not exists"));
         students.remove(id);
-    }
-
-    private <T> T updateIfNotNull(T previousValue, T newValue) {
-        return newValue == null ? previousValue : newValue;
     }
 
     public void update(int id, Student studentPatch) {

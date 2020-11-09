@@ -72,4 +72,12 @@ public class GroupService {
     public List<Group> getGroups() {
         return groupRepository.findAll();
     }
+
+    public void updateGroup(int id, Group groupPatch) {
+        try {
+            groupRepository.update(id, groupPatch);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("id not exists");
+        }
+    }
 }
